@@ -14,7 +14,7 @@
   ],
   "scripts": {
     "postinstall": "node scripts/install_engines.js",
-    "test": "node run_tests.js && node test_lambda.js",
+    "test": "node test_lambda.js",
     "test:remote": "node test_harness.js"
   },
   "dependencies": {

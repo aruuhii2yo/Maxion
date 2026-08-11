@@ -1,0 +1,16 @@
+{
+  "Variables": {
+    "S3_OUTPUT_BUCKET": "jk-advanced-tech-web-videos",
+    "GUMROAD_MAXION_HOURLY": "maxion-hourly",
+    "GUMROAD_MAXION_MONTHLY": "maxion-monthly",
+    "GUMROAD_DIAMONIZE_HOURLY": "diamonize-hourly",
+    "GUMROAD_DIAMONIZE_MONTHLY": "diamonize-monthly",
+    "GUMROAD_QUEZAR_HOURLY": "quezar-hourly",
+    "GUMROAD_QUEZAR_MONTHLY": "quezar-monthly",
+    "GUMROAD_LINEAGE_6": "lineage0-video",
+    "GUMROAD_LINEAGE_12": "lineage0-video",
+    "GUMROAD_LINEAGE_30": "lineage0-video",
+    "GUMROAD_LINEAGE_60": "lineage0-video",
+    "GUMROAD_LINEAGE_120": "lineage0-video"
+  }
+}

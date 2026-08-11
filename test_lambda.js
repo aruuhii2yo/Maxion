@@ -43,7 +43,7 @@ process.env.AWS_REGION = 'us-east-2';
 const { handler } = require('./lambda.js');
 const { version: PKG_VERSION } = require('./package.json');
 
-const stats = { pass: 0, fail: 0 };
+const stats = { pass: 0, fail: 0, skip: 0 };
 const failures = [];
 
 function pass(label) { stats.pass++; console.log(`  ✅ PASS  ${label}`); }
@@ -54,6 +54,14 @@ function fail(label, detail) {
   console.log(`           ${String(detail).split('\n').join('\n           ')}`);
 }
 function check(label, cond, detail) { cond ? pass(label) : fail(label, detail || 'condition was false'); }
+// mcp_wrapper.js (the stdio entrypoint) is deliberately not in this repo --
+// see .gitignore. Checks that cross-reference its source can never run here;
+// skip() reports that plainly rather than crashing or silently passing.
+function skip(label, reason) {
+  stats.skip++;
+  console.log(`  ⏭️  SKIP  ${label}`);
+  console.log(`           ${reason}`);
+}
 
 function section(label) {
   console.log('\n' + '─'.repeat(60));
@@ -192,7 +200,11 @@ async function main() {
   }
 
   section('Billing — lambda_env.json permalinks match the working stdio config');
-  {
+  if (!fs.existsSync(path.join(__dirname, 'mcp_wrapper.js'))) {
+    skip('lambda_env.json permalinks vs. mcp_wrapper.js GUMROAD_LINKS',
+      'mcp_wrapper.js is not in this repo (see .gitignore) -- this check has nothing to cross-reference here. ' +
+      'Real coverage: it still runs wherever mcp_wrapper.js is present alongside this file.');
+  } else {
     // Static, not behavioral: this is the check that would have caught the
     // real bug directly. lambda_env.json shipped long-form permalinks
     // (maxion-v16-hourly) that appear nowhere else in the repo; every other
