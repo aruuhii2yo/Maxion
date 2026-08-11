@@ -1,0 +1,39 @@
+{
+  "name": "@aruuhii2yo/maxion-mcp-gateway",
+  "mcpName": "io.github.aruuhii2yo/maxion-mcp-gateway",
+  "version": "17.0.0",
+  "description": "Enterprise MCP gateway \u2014 22-tool dot-notation suite (19 on the hosted Lambda endpoint): Maxion V16 (thermal engine), Diamonize LSA (security), Quezar (AES-256 lattice storage), HMAC Vault (payload verification, stdio only), Lineage.0 VC (AI video/image). Card licensing via Gumroad.",
+  "main": "mcp_wrapper.js",
+  "bin": {
+    "maxion-mcp-gateway": "./mcp_wrapper.js"
+  },
+  "keywords": [
+    "mcp",
+    "rust",
+    "tauri"
+  ],
+  "scripts": {
+    "postinstall": "node scripts/install_engines.js",
+    "test": "node run_tests.js && node test_lambda.js",
+    "test:remote": "node test_harness.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.1054.0",
+    "@aws-sdk/client-cloudfront": "^3.1055.0",
+    "@aws-sdk/client-iam": "^3.1073.0",
+    "@aws-sdk/client-lambda": "^3.1055.0",
+    "@aws-sdk/client-s3": "^3.1054.0",
+    "@aws-sdk/s3-request-presigner": "^3.1054.0",
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@supabase/supabase-js": "^2.105.1",
+    "archiver": "^8.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "systeminformation": "^5.31.5"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "typescript": "^6.0.3"
+  }
+}

@@ -1,0 +1,56 @@
+runtime: "container"
+
+build:
+  dockerfile: Dockerfile
+  dockerBuildPath: .
+
+startCommand:
+  type: http
+
+configSchema:
+  type: object
+  title: "Maxion MCP Gateway Configuration"
+  description: "Configuration options for the Maxion MCP Gateway suite."
+  properties:
+    licenseKey:
+      type: string
+      title: "Gumroad License Key"
+      description: "Optional Gumroad license key for Maxion V16, Diamonize LSA, Quezar Vault, or Lineage.0. Leave empty to use the instant 30-minute free trial per module."
+    gatewayKey:
+      type: string
+      title: "Gateway API Key"
+      description: "Optional API authorization key for custom gateway fleet endpoints."
+    awsRegion:
+      type: string
+      title: "AWS Region"
+      description: "AWS Region for Bedrock and S3 services (defaults to us-east-1)."
+      default: "us-east-1"
+  required: []
+
+metadata:
+  title: "Maxion Enterprise MCP Gateway"
+  description: "Enterprise Model Context Protocol gateway providing unified tools for system performance & thermal stress benchmarking (Maxion V16), on-demand security & signature auditing (Diamonize LSA), authenticated AES-256-GCM encrypted sector storage (Quezar), HMAC-SHA256 deployment signature verification, and Amazon Bedrock Nova Reel/Canvas media synthesis (Lineage.0 VC). Supports MCP Streamable HTTP, SSE, and Stdio protocols with built-in telemetry and licensing management."
+  homepage: https://advancedapparchitect.com
+  icon: https://jk-advanced-tech-web.s3.us-east-2.amazonaws.com/maxion-icon.svg
+  categories:
+    - media-generation
+    - security
+    - storage
+    - infrastructure
+    - ai-tools
+  tags:
+    - ai-video
+    - image-generation
+    - nova-reel
+    - nova-canvas
+    - security-scanner
+    - aes-256
+    - enterprise
+    - data-center
+    - university
+    - hpc
+    - zero-trust
+    - encrypted-storage
+    - aws
+    - free-trial
+    - mcp-gateway

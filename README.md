@@ -1,0 +1,159 @@
+# Maxion MCP Gateway — J&K Advanced Technologies
+
+[![smithery badge](https://smithery.ai/badge/aruuhii2yo/maxion-mcp-gateway)](https://smithery.ai/servers/aruuhii2yo/maxion-mcp-gateway)
+
+Enterprise Model Context Protocol (MCP) gateway suite providing 22 unified tools (stdio; 19 on the hosted Lambda endpoint) across five functional namespaces: hardware telemetry & multi-core performance benchmarking, on-demand zero-trust security auditing, AES-256-GCM authenticated encrypted storage, HMAC payload verification, and Amazon Bedrock media generation.
+
+Supports MCP Streamable HTTP, SSE, and Stdio protocols with built-in telemetry, trial tracking, and modular licensing.
+
+---
+
+## Quickstart
+
+### 1. Cloud / Container Deployment (Smithery)
+
+Connect directly via [Smithery](https://smithery.ai/servers/aruuhii2yo/maxion-mcp-gateway) using Streamable HTTP:
+
+```
+https://mcp.smithery.ai/aruuhii2yo
+```
+
+### 2. Local Node.js / Claude Desktop (Stdio)
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/aruuhii2yo/maxion-mcp-gateway.git
+cd maxion-mcp-gateway
+npm install
+```
+
+Configure in Claude Desktop (`%APPDATA%/Claude/claude_desktop_config.json` on Windows or `~/Library/Application Support/Claude/claude_desktop_config.json` on macOS):
+
+```json
+{
+  "mcpServers": {
+    "maxion-gateway": {
+      "command": "node",
+      "args": ["<path-to-repository>/mcp_wrapper.js"]
+    }
+  }
+}
+```
+
+---
+
+## Architectural Overview & Execution Modes
+
+The gateway operates across two primary environments:
+
+| Feature / Tool Namespace | Local Stdio / Self-Hosted Node.js | Hosted Cloud Endpoint (Lambda / Container) |
+|---|---|---|
+| **Maxion V16** (`engine.maxion.*`) | Live hardware telemetry (`systeminformation`) + native multi-core prime-sieve benchmark | Live host container telemetry (CPU, memory, load) |
+| **Diamonize LSA** (`security.diamonize.scan`) | Full on-demand SHA-256 calculation & heuristic pattern scan of files/memory | Cloud target hashing & heuristic analysis |
+| **Quezar Storage** (`storage.quezar.*`) | Authenticated AES-256-GCM encrypted sector storage in local vault | Cloud vault sector management |
+| **HMAC Vault** (`vault.hmac.verify`) | Rust-backed single-shot HMAC-SHA256 deploy secret verification | Stdio only (requires local deploy key) |
+| **Lineage.0 VC** (`media.lineage0.*`) | Amazon Bedrock Nova Reel 1.1 (video) & Nova Canvas (image) | Amazon Bedrock Nova Reel 1.1 (video) & Nova Canvas (image) |
+
+---
+
+## Tool Namespaces & Detailed Operation
+
+### 1. Maxion V16 — Hardware Telemetry & Thermal Load Benchmark
+
+Provides non-invasive system telemetry and high-intensity compute benchmarking to measure CPU performance and throughput stability under sustained multi-core loads.
+
+- `engine.maxion.activate` — Gathers initial baseline telemetry (CPU package model, core topology, clock speeds, memory utilization, and thermal sensors).
+- `engine.maxion.status` — Real-time telemetry snapshot reporting current utilization, load averages, and thermal metrics.
+- `engine.maxion.diagnostics` — Comprehensive diagnostic pass analyzing core distribution, memory saturation, and sustained throughput stability.
+- `engine.maxion.deactivate` — Reports active governor status.
+
+### 2. Diamonize LSA — On-Demand Zero-Trust Security Auditing
+
+Provides on-demand file integrity verification, cryptographic hashing, and signature auditing for application files and running process tables.
+
+- `security.diamonize.scan` — Performs SHA-256 hashing and checks target buffers against known threat signatures (EICAR standard test string, obfuscated PowerShell patterns, ransomware shadow copy deletion strings, process injection primitives).
+- `security.diamonize.status` — Reports current security audit posture (transparently indicating on-demand audit mode, active engine path, and quarantine metrics).
+- `security.diamonize.quarantine` — Isolates and scrambles suspicious payload files into a local quarantine vault.
+- `security.diamonize.logs` — Retrieves structured JSONL audit logs of previous scans.
+
+### 3. Quezar — AES-256-GCM Authenticated Encrypted Storage
+
+Provides authenticated encryption for sensitive configuration, credentials, and artifacts using industry-standard NIST SP 800-38D AES-256-GCM.
+
+- `storage.quezar.store` — Generates a 96-bit initialization vector (IV), encrypts payload using AES-256-GCM, appends a 128-bit authentication tag, and stores the sector under a unique Lattice ID.
+- `storage.quezar.retrieve` — Verifies authentication tag and decrypts sector payload by Lattice ID.
+- `storage.quezar.delete` — Safely purges an encrypted sector from the vault.
+- `storage.quezar.list` — Enumerates active sector IDs.
+- `storage.quezar.status` — Reports total encrypted sectors and vault size on disk.
+
+### 4. HMAC Vault — Payload Verification *(stdio only)*
+
+Stateless HMAC-SHA256 signature verification validating that a payload was generated by a holder of the deployment secret (`MAXION_DEPLOY_KEY`).
+
+- `vault.hmac.verify` — Computes `HMAC-SHA256(payload, MAXION_DEPLOY_KEY)` and performs constant-time comparison against caller-supplied hash.
+
+### 5. Lineage.0 VC — AI Video & Image Synthesis
+
+Cloud multimedia generation via Amazon Bedrock:
+
+- `media.lineage0.generate` — Dispatches generation tasks to Amazon Nova Reel 1.1 (4K video) or Nova Canvas (commercial image generation) and returns a signed S3 retrieval URL.
+- `media.lineage0.status` — Real-time operational status of the Nova synthesis pipeline.
+- `media.lineage0.archive` — Lists recently generated multimedia artifacts in the output bucket.
+
+### 6. Billing & Gateway Management
+
+- `billing.purchase` — Returns a free 30-minute trial key (Maxion/Diamonize/Quezar, once per module) or licensing details.
+- `billing.activate` — Verifies and activates a Gumroad license key.
+- `gateway.status` — Comprehensive overview of all 22 tool namespaces, license states, and active endpoints.
+- `gateway.agent_instructions` — Setup instructions for configuring IDEs and MCP clients.
+- `gateway.restart` — Exits stdio process for automatic client restart.
+
+---
+
+## Native Engine Binaries & Wire Protocol
+
+For high-performance native execution, the gateway integrates with native companion binaries (`Maxion V16`, `diamonize-lsa`, `quezar-storage`, and `go_green_suite`).
+
+### Resolution Order
+1. Environment variable `$MAXION_ENGINE_DIR`
+2. `engines/` directory alongside `mcp_wrapper.js`
+3. Local build target directories (`<app>/src-tauri/target/release/`)
+
+### CLI Wire Protocol
+When invoked via `--cli`, companion binaries communicate over standard I/O:
+- **Input**: JSON payload passed directly to `stdin`.
+- **Output**: JSON payload returned on `stdout`.
+
+When companion binaries are absent, the gateway gracefully reports host-level telemetry or clean diagnostic information without crashing.
+
+---
+
+## Licensing & Access Tiers
+
+| Tier | Access Duration | Provisioning Method |
+|---|---|---|
+| **Free Trial** | 30 minutes / 10 calls per module | Instant via `billing.purchase` (`duration='trial'`) |
+| **Hourly / Monthly** | Card payment via Gumroad | Activate with `billing.activate` using license key |
+| **Fleet / Enterprise** | Volume licensing for clusters | Contact `aruuh@advancedapparchitect.com` |
+| **Lineage.0 VC** | Per-generation credit usage | Pay-as-you-go Bedrock media generation |
+
+---
+
+## Verification & Testing
+
+Run the automated test suite locally:
+
+```bash
+npm test
+```
+
+This executes both `run_tests.js` (stdio & engine integration suite) and `test_lambda.js` (hosted schema & licensing suite).
+
+---
+
+## Links & Contact
+
+- **Documentation & Homepage:** https://advancedapparchitect.com
+- **Smithery Server Registry:** https://smithery.ai/servers/aruuhii2yo/maxion-mcp-gateway
+- **Enterprise Contact:** aruuh@advancedapparchitect.com

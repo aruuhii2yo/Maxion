@@ -1,0 +1,92 @@
+# ============================================================
+# PROPRIETARY SOURCE CODE — STRICTLY EXCLUDED FROM ALL REPOS
+# ============================================================
+# Rust source — NEVER commit, publish, or expose
+maxion-core-engine/
+*/src-tauri/
+**/src-tauri/
+**/*.rs
+**/*.rlib
+**/*.pdb
+
+# Cargo configs — hide implementation details
+**/Cargo.toml
+**/Cargo.lock
+**/build.rs
+Cargo.toml
+Cargo.lock
+
+# Enterprise License files
+*.lic
+*.keypair.json
+
+# MCP server internals — core implementation must remain private
+mcp_wrapper.js
+gateway.js
+index.js
+
+# AWS / infrastructure secrets
+**/aws-exports.js
+**/amplify/
+terraform/
+*.pem
+*.key
+credentials
+config
+
+# ============================================================
+# Build artifacts
+target/
+dist/win-unpacked/
+node_modules/
+.next/cache/
+*.node.bak
+
+# Secrets
+.env
+.env.local
+
+# Logs
+*.log
+build_sync_log.txt
+
+# Build artifacts
+target/
+dist/win-unpacked/
+node_modules/
+.next/cache/
+*.node.bak
+
+# Secrets
+.env
+.env.local
+
+# Logs
+*.log
+build_sync_log.txt
+
+# Temp
+temp_hold/
+temp-aws/
+backup_temp/
+worker_deploy.zip
+Sovereign_Nexus_Perfect_Backup_v1.zip
+*.exe
+*.pkg
+*.deb
+dist/.next/
+
+# Blackbox Rust Source Code
+*/src-tauri/src/
+*/src-tauri/Cargo.toml
+*/src-tauri/Cargo.lock
+*/src-tauri/build.rs
+
+# Engine binaries — built from proprietary source, never committed
+engines/
+
+# mmap IPC buffer written by maxion-core-engine at runtime
+maxion_ipc.bin
+
+# per-run engine stash created by run_tests.js
+.engines-stash-*
