@@ -23,8 +23,8 @@ https://mcp.smithery.ai/aruuhii2yo
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/aruuhii2yo/maxion-mcp-gateway.git
-cd maxion-mcp-gateway
+git clone https://github.com/aruuhii2yo/Maxion.git
+cd Maxion
 npm install
 ```
 
