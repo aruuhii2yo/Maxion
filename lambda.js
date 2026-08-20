@@ -754,11 +754,10 @@ exports.handler = async (event, context) => {
 
   if (!rawPath.startsWith("/mcp") && rawPath !== "/") return { statusCode: 404, headers: CORS, body: "Not Found" };
 
-  // AWS Agent Space requires explicit authorization for MCP endpoints to ensure secure communication
-  const headersStr = JSON.stringify(event.headers || {});
-  if (!headersStr.includes('maxion-gateway-key')) {
-    return { statusCode: 401, headers: CORS, body: 'Unauthorized: API Key required' };
-  }
+  // No platform-level gate here by design: checkAccess() below is the only
+  // gate, per-tool, and it is Gumroad licensing (with a free trial) --
+  // never a static shared secret. Connecting must stay free; using a paid
+  // tool must not.
 
   const bodyStr = event.isBase64Encoded
     ? Buffer.from(event.body || "", "base64").toString("utf8")
